@@ -65,4 +65,13 @@ The master build spec recommends a future React/Vite/TypeScript static-site work
 
 ## Stage 0 Decision
 
-Stage 0 establishes the repository foundation and planning documents only. No website, framework, hosting, payment, HubSpot, DNS, or production integration is added in Stage 0.
+Stage 0 established the repository foundation and planning documents only. No website, framework, hosting, payment, HubSpot, DNS, or production integration was added in Stage 0.
+
+## Stage 1 Decision
+
+The owner approved moving beyond Stage 0 to add the actual public website as a React/Vite app in the top-level `website/` directory.
+
+- Preserve existing founding documents, specifications, notes, and documentation.
+- Set up GitHub Pages preview deployment with GitHub Actions.
+- Build from `website/` and deploy `website/dist` as the GitHub Pages artifact.
+- Do not connect the live `49CFR40.com` domain yet.
