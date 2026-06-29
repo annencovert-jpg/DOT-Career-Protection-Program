@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Visual Design System Specification - DOT Career Protection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+        /* Custom scrollbar for a cleaner UI */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline-variant": "#c6c6cd",
+                      "secondary-fixed": "#d5e3fc",
+                      "on-tertiary-container": "#e45405",
+                      "surface-dim": "#d8dadc",
+                      "text-main": "#161616",
+                      "on-surface": "#191c1e",
+                      "secondary": "#515f74",
+                      "safety-orange-muted": "#FB923C",
+                      "primary-container": "#131b2e",
+                      "border-subtle": "#E2E8F0",
+                      "secondary-container": "#d5e3fc",
+                      "on-tertiary-fixed-variant": "#7f2b00",
+                      "on-secondary-fixed": "#0d1c2e",
+                      "surface-dark": "#1E293B",
+                      "on-secondary": "#ffffff",
+                      "primary": "#000000",
+                      "on-primary-fixed": "#131b2e",
+                      "surface-bright": "#f7f9fb",
+                      "surface-container-highest": "#e0e3e5",
+                      "on-surface-variant": "#45464d",
+                      "surface-variant": "#e0e3e5",
+                      "inverse-surface": "#2d3133",
+                      "on-primary-container": "#7c839b",
+                      "on-background": "#191c1e",
+                      "tertiary-fixed-dim": "#ffb599",
+                      "surface-container-low": "#f2f4f6",
+                      "on-secondary-fixed-variant": "#3a485b",
+                      "surface-container": "#eceef0",
+                      "secondary-fixed-dim": "#b9c7df",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "on-secondary-container": "#57657a",
+                      "on-error-container": "#93000a",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed": "#370e00",
+                      "tertiary": "#000000",
+                      "error": "#ba1a1a",
+                      "inverse-on-surface": "#eff1f3",
+                      "surface-container-high": "#e6e8ea",
+                      "surface": "#f7f9fb",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed-dim": "#bec6e0",
+                      "background": "#f7f9fb",
+                      "tertiary-container": "#370e00",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed": "#ffdbce",
+                      "surface-tint": "#565e74",
+                      "inverse-primary": "#bec6e0",
+                      "primary-fixed": "#dae2fd",
+                      "outline": "#76777d"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "2.5rem",
+                      "margin-mobile": "1rem",
+                      "stack-lg": "3rem",
+                      "stack-sm": "0.5rem",
+                      "container-max": "1280px",
+                      "gutter": "1.5rem",
+                      "stack-md": "1.5rem"
+              },
+              "fontFamily": {
+                      "body-md": ["Hanken Grotesk"],
+                      "display": ["Hanken Grotesk"],
+                      "headline-md": ["Hanken Grotesk"],
+                      "headline-lg": ["Hanken Grotesk"],
+                      "label-caps": ["Inter"],
+                      "headline-lg-mobile": ["Hanken Grotesk"],
+                      "body-lg": ["Hanken Grotesk"],
+                      "button": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "body-lg": ["20px", {"lineHeight": "30px", "fontWeight": "400"}],
+                      "button": ["16px", {"lineHeight": "20px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden selection:bg-safety-orange-muted/30">
+<!-- TopNavBar (Shared Component Execution) -->
+<header class="bg-surface border-b border-border-subtle sticky top-0 z-50">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-text-main">
+                DOT Career Protection
+            </div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-secondary hover:text-primary transition-colors font-body-md text-body-md" href="#">Benefits</a>
+<a class="text-secondary hover:text-primary transition-colors font-body-md text-body-md" href="#">Pricing</a>
+<a class="text-secondary hover:text-primary transition-colors font-body-md text-body-md" href="#">Resources</a>
+<a class="text-primary font-bold border-b-2 border-safety-orange-muted pb-1 font-body-md text-body-md" href="#">FAQ</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden md:block text-secondary font-button text-button">Login</button>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-button text-button hover:bg-primary/90 transition-all active:scale-95">Join Now</button>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
+<!-- Header Section -->
+<section class="mb-stack-lg border-b border-border-subtle pb-12">
+<p class="font-label-caps text-label-caps text-safety-orange-muted mb-2">DESIGN SYSTEM V1.0</p>
+<h1 class="font-display text-display text-primary mb-4">Visual Design Specification</h1>
+<p class="font-body-lg text-body-lg text-secondary max-w-2xl">
+                A toolkit for building a protective, modern, and high-trust interface for the DOT Career Protection Program.
+            </p>
+</section>
+<!-- 1. Color Palette -->
+<section class="mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg mb-8">1. Color Palette</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<div class="space-y-3">
+<div class="h-32 w-full bg-primary-container rounded-xl"></div>
+<div>
+<p class="font-headline-md text-headline-md text-primary">Dark Navy</p>
+<p class="font-label-caps text-label-caps text-secondary">#131B2E (Primary Container)</p>
+</div>
+</div>
+<div class="space-y-3">
+<div class="h-32 w-full bg-secondary rounded-xl"></div>
+<div>
+<p class="font-headline-md text-headline-md text-primary">Slate</p>
+<p class="font-label-caps text-label-caps text-secondary">#515F74 (Secondary)</p>
+</div>
+</div>
+<div class="space-y-3">
+<div class="h-32 w-full bg-white border border-border-subtle rounded-xl"></div>
+<div>
+<p class="font-headline-md text-headline-md text-primary">White</p>
+<p class="font-label-caps text-label-caps text-secondary">#FFFFFF (Surface)</p>
+</div>
+</div>
+<div class="space-y-3">
+<div class="h-32 w-full bg-safety-orange-muted rounded-xl"></div>
+<div>
+<p class="font-headline-md text-headline-md text-primary">Safety Orange</p>
+<p class="font-label-caps text-label-caps text-secondary">#FB923C (Accent)</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. Typography -->
+<section class="mb-stack-lg bg-surface-container-low p-8 rounded-xl border border-border-subtle">
+<h2 class="font-headline-lg text-headline-lg mb-8">2. Typography Scale</h2>
+<div class="space-y-10">
+<div class="border-b border-border-subtle pb-6">
+<p class="font-label-caps text-label-caps text-secondary mb-4 uppercase">Display / 48px Bold</p>
+<h3 class="font-display text-display text-primary">The Modern Shield for Drivers</h3>
+</div>
+<div class="border-b border-border-subtle pb-6">
+<p class="font-label-caps text-label-caps text-secondary mb-4 uppercase">Headline LG / 32px Bold</p>
+<h3 class="font-headline-lg text-headline-lg text-primary">Professional Career Security</h3>
+</div>
+<div class="border-b border-border-subtle pb-6">
+<p class="font-label-caps text-label-caps text-secondary mb-4 uppercase">Headline MD / 24px Semibold</p>
+<h3 class="font-headline-md text-headline-md text-primary">Protecting Your Future</h3>
+</div>
+<div class="border-b border-border-subtle pb-6">
+<p class="font-label-caps text-label-caps text-secondary mb-4 uppercase">Body LG / 20px Regular</p>
+<p class="font-body-lg text-body-lg text-secondary">A comprehensive protection program designed for DOT covered professionals.</p>
+</div>
+</div>
+</section>
+<!-- 3. Spacing & Shape -->
+<section class="mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg mb-8">3. Spacing &amp; Shape</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="p-8 border border-border-subtle bg-white rounded-lg">
+<p class="font-headline-md text-headline-md mb-4">The 8px Grid</p>
+<div class="flex gap-2 mb-4">
+<div class="w-2 h-2 bg-safety-orange-muted"></div>
+<div class="w-4 h-4 bg-safety-orange-muted"></div>
+<div class="w-6 h-6 bg-safety-orange-muted"></div>
+<div class="w-8 h-8 bg-safety-orange-muted"></div>
+<div class="w-12 h-12 bg-safety-orange-muted"></div>
+<div class="w-16 h-16 bg-safety-orange-muted"></div>
+</div>
+<p class="font-body-md text-body-md text-secondary">All margins, padding, and height dimensions adhere to a strict 8px power-of-two scale for visual rhythm.</p>
+</div>
+<div class="p-8 border border-border-subtle bg-white rounded-xl">
+<p class="font-headline-md text-headline-md mb-4">Moderate Radius (12px / 0.75rem)</p>
+<div class="bg-primary-container p-12 rounded-xl text-center">
+<span class="text-white font-label-caps">CONTAINER LEVEL 1</span>
+</div>
+<p class="font-body-md text-body-md text-secondary mt-4">Standard border radius is set to 12px for cards to feel approachable but professional.</p>
+</div>
+</div>
+</section>
+<!-- 4. UI Components Gallery -->
+<section class="mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg mb-8">4. UI Components</h2>
+<!-- Buttons -->
+<div class="mb-12">
+<h3 class="font-headline-md text-headline-md mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">smart_button</span> Button Gallery
+                </h3>
+<div class="flex flex-wrap gap-6 items-center bg-white p-8 border border-border-subtle rounded-xl">
+<button class="bg-primary text-on-primary px-8 py-3 rounded-lg font-button text-button hover:bg-primary/90">Primary Action</button>
+<button class="border border-secondary text-secondary px-8 py-3 rounded-lg font-button text-button hover:bg-surface-container-low transition-colors">Secondary Action</button>
+<button class="text-primary font-button text-button hover:underline flex items-center gap-2">
+                        Ghost Action <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<button class="bg-safety-orange-muted text-primary px-8 py-3 rounded-lg font-button text-button hover:bg-on-tertiary-container transition-colors">Critical Trigger</button>
+</div>
+</div>
+<!-- Benefit Cards (Bento style) -->
+<div class="mb-12">
+<h3 class="font-headline-md text-headline-md mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">verified</span> Benefit Cards
+                </h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div class="p-8 border border-border-subtle bg-white rounded-xl hover:shadow-md transition-shadow"><div class="w-12 h-12 bg-surface-container-low rounded-lg flex items-center justify-center mb-6 text-secondary"><span class="material-symbols-outlined text-3xl">support_agent</span></div><h4 class="font-headline-md text-headline-md mb-3">SAP Process Support</h4><p class="font-body-md text-body-md text-secondary">SAP assessments and required DOT documentation of the process.</p></div><div class="p-8 border border-border-subtle bg-white rounded-xl hover:shadow-md transition-shadow"><div class="w-12 h-12 bg-surface-container-low rounded-lg flex items-center justify-center mb-6 text-secondary"><span class="material-symbols-outlined text-3xl">school</span></div><h4 class="font-headline-md text-headline-md mb-3">RTD Education Assistance</h4><p class="font-body-md text-body-md text-secondary">Coverage of eligible education expenses resulting from the SAP assessment.</p></div><div class="p-8 border border-border-subtle bg-white rounded-xl hover:shadow-md transition-shadow"><div class="w-12 h-12 bg-surface-container-low rounded-lg flex items-center justify-center mb-6 text-secondary"><span class="material-symbols-outlined text-3xl">biotech</span></div><h4 class="font-headline-md text-headline-md mb-3">Practice RTD Drug Test</h4><p class="font-body-md text-body-md text-secondary">Coverage of one eligible non-DOT test before SAP process completion.</p></div><div class="p-8 border border-border-subtle bg-white rounded-xl hover:shadow-md transition-shadow"><div class="w-12 h-12 bg-surface-container-low rounded-lg flex items-center justify-center mb-6 text-secondary"><span class="material-symbols-outlined text-3xl">menu_book</span></div><h4 class="font-headline-md text-headline-md mb-3">Ongoing Compliance Education</h4><p class="font-body-md text-body-md text-secondary">Quarterly newsletters and practical education to help members understand DOT safety and drug-and-alcohol requirements.</p></div></div>
+</div>
+<!-- Pricing & Accordion -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+<!-- Pricing Cards -->
+<div>
+<h3 class="font-headline-md text-headline-md mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">sell</span> Pricing Options
+                    </h3>
+<div class="space-y-4">
+<div class="p-6 bg-white border border-border-subtle rounded-xl flex justify-between items-center"><div><h4 class="font-headline-md text-headline-md">Monthly</h4><p class="text-secondary">Basic legal coverage</p></div><div class="text-right"><p class="text-3xl font-display font-bold text-primary">$7.99<span class="text-sm font-body-md text-secondary">/mo</span></p></div></div>
+<div class="p-6 bg-white border-2 border-safety-orange-muted rounded-xl flex justify-between items-center relative overflow-hidden"><div class="absolute top-0 right-0 bg-safety-orange-muted px-4 py-1 rounded-bl-lg font-label-caps text-white">MOST POPULAR</div><div><h4 class="font-headline-md text-headline-md">Annual</h4><p class="text-secondary">Full protection + Income recovery</p></div><div class="text-right"><p class="text-3xl font-display font-bold text-primary">$80<span class="text-sm font-body-md text-secondary">/yr</span></p></div></div>
+</div>
+</div>
+<!-- FAQ Accordion -->
+<div>
+<h3 class="font-headline-md text-headline-md mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">help_center</span> FAQ Accordion
+                    </h3>
+<div class="divide-y divide-border-subtle border-t border-b border-border-subtle">
+<div class="py-4 group cursor-pointer">
+<div class="flex justify-between items-center">
+<p class="font-headline-md text-headline-md text-primary text-lg">Who is eligible for the program?</p>
+<span class="material-symbols-outlined group-hover:rotate-180 transition-transform">expand_more</span>
+</div>
+</div>
+<div class="py-4 group cursor-pointer">
+<div class="flex justify-between items-center">
+<p class="font-headline-md text-headline-md text-primary text-lg">How quickly does coverage begin?</p>
+<span class="material-symbols-outlined group-hover:rotate-180 transition-transform">expand_more</span>
+</div>
+<p class="mt-4 text-secondary font-body-md">Coverage typically activates 24 hours after your membership is confirmed and verified by our compliance team.</p>
+</div>
+<div class="py-4 group cursor-pointer">
+<div class="flex justify-between items-center">
+<p class="font-headline-md text-headline-md text-primary text-lg">Can I cancel at any time?</p>
+<span class="material-symbols-outlined group-hover:rotate-180 transition-transform">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Timeline & Disclosure -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+<!-- Protection Path -->
+<div>
+<h3 class="font-headline-md text-headline-md mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">route</span> Protection Path
+                    </h3>
+<div class="space-y-0 relative border-l-2 border-primary-container ml-4 pl-8">
+<div class="relative pb-12">
+<div class="absolute -left-[41px] top-0 w-4 h-4 bg-primary-container rounded-full ring-8 ring-surface"></div>
+<h4 class="font-headline-md text-headline-md text-primary">Onboarding</h4>
+<p class="text-secondary">We review your driving history and confirm eligibility within 24 hours.</p>
+</div>
+<div class="relative pb-12">
+<div class="absolute -left-[41px] top-0 w-4 h-4 bg-primary-container rounded-full ring-8 ring-surface"></div>
+<h4 class="font-headline-md text-headline-md text-primary">Active Protection</h4>
+<p class="text-secondary">Your profile is monitored 24/7 against new DOT filings or changes.</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[41px] top-0 w-4 h-4 bg-primary-container rounded-full ring-8 ring-surface"></div>
+<h4 class="font-headline-md text-headline-md text-primary">Claims Support</h4>
+<p class="text-secondary">Incident reports trigger immediate legal and financial support protocols.</p>
+</div>
+</div>
+</div>
+<!-- Disclosure Boxes -->
+<div>
+<h3 class="font-headline-md text-headline-md mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">warning</span> Alerts &amp; Disclosures
+                    </h3>
+<div class="space-y-4">
+<div class="p-6 bg-white border-l-4 border-safety-orange-muted rounded-r-lg shadow-sm">
+<p class="font-headline-md text-headline-md text-primary mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-safety-orange-muted">info</span> Important Notice
+                            </p>
+<p class="text-secondary font-body-md">This program is not a replacement for statutory insurance. It is a supplementary career protection service for professionals.</p>
+</div>
+<div class="p-6 bg-surface-container-low border border-border-subtle rounded-lg">
+<p class="text-on-surface-variant font-body-md italic">"Documentation provided here is for visualization purposes only and represents the final UI token architecture."</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Resource Cards -->
+<div>
+<h3 class="font-headline-md text-headline-md mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">menu_book</span> Resources &amp; Articles
+                </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="group bg-white rounded-xl overflow-hidden border border-border-subtle hover:border-primary-container transition-all">
+<div class="h-48 w-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A clean, professional photograph of a modern commercial truck driver sitting calmly in a well-lit cab, wearing a professional uniform. The lighting is soft and natural, emphasizing a sense of security and focus. The aesthetic is modern and high-contrast, avoiding any stressful or chaotic elements." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf3mVAIfEYpYPixs_v5TOBB5O3rZz4UCJt5djoJJE_IzTiTxV33vMZsFGutpw06ZfLpWBYZ14dnalePcIYs8ODqXnl0mXVRJ3nP2TfzdxwX5ejzlqerpdFfQi878Z81x3wcyl8e7nJOsaL9dfR0xzDPaY8iE67slxcoQSiFpUhl7O_mcDbmq-2Ufef47luTI9P3cGIH-MxVN-ZvCdFpd2UCZTM-9gBjiveEo4nGHPiJceiHgY72GmMBTPkE7mtn8kDe1x2xYaPdqk"/>
+</div>
+<div class="p-6">
+<span class="inline-block px-2 py-1 bg-secondary-fixed text-on-secondary-fixed rounded text-xs font-bold mb-4 uppercase">Regulation Guide</span>
+<h4 class="font-headline-md text-headline-md mb-3 text-primary group-hover:text-safety-orange-muted transition-colors">Understanding 2024 DOT Changes</h4>
+<p class="text-secondary text-sm">A deep dive into upcoming legislative shifts that impact safety-sensitive positions.</p>
+</div>
+</div>
+<div class="group bg-white rounded-xl overflow-hidden border border-border-subtle hover:border-primary-container transition-all">
+<div class="h-48 w-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A top-down view of a modern workstation with a clean desk, a tablet showing a career dashboard, and a cup of coffee. The environment is serene and organized, with soft morning light filtering through a nearby window. High-contrast white and dark navy tones define the professional atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN6WjZIaPCCoGRSviH9ovmVHf-46oRN7R2slvI9LfALOBDeqxq_EJGqz5sceI_t7PlYCgy--stYRxaB9pSKd79JGwh_TRw65a2y7CVTItXm5j0_EOJwzykqLVzPKd9D3E1dU80VHof8vesWna4pQtDg5t_2R7-qNDOeVJIP63uQggVQjImxB9e8zLfxTIklYooH7Li1AmPBoHtzZAGbFJmwCSiBD-I5FcUgyDnzYdB9Gr3QSJr_JLh2lZ773cSwpZhSxg2s7DzBFE"/>
+</div>
+<div class="p-6">
+<span class="inline-block px-2 py-1 bg-secondary-fixed text-on-secondary-fixed rounded text-xs font-bold mb-4 uppercase">Career Growth</span>
+<h4 class="font-headline-md text-headline-md mb-3 text-primary group-hover:text-safety-orange-muted transition-colors">Maximizing Your Career Value</h4>
+<p class="text-secondary text-sm">How professional protection programs can actually increase your marketability as a driver.</p>
+</div>
+</div>
+<div class="group bg-white rounded-xl overflow-hidden border border-border-subtle hover:border-primary-container transition-all">
+<div class="h-48 w-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An abstract architectural photograph of a sleek, modern glass building reflecting a clear blue sky. The lines are sharp and geometric, conveying stability and transparency. The color palette is composed of cool greys, whites, and deep blues, aligned with a protective corporate brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTXOhq-UZxU7Ym1AYpoG06vft2QvSd58t7SUtC9mOWOpUSGJDtPd1IxDrYkhX6MpkaLS-i-NT8MlBJn8aANiPGnrZtMEklsr8JIvaHRQ4GYo4nWmEmQ9Za8JfX2gKlEluxIO-0frmywl4pZypOByXnH4OdDukQKHy8ELKjU5IR4B-wW4Rm1JP743TOZQ_SWJdyF_hTvia-O4ECk5a67hu-wM6UWmKYPkhPK-Qd41JytzfL5w6WuxWKi-sy4nB699RSCdqFYpKSSQM"/>
+</div>
+<div class="p-6">
+<span class="inline-block px-2 py-1 bg-secondary-fixed text-on-secondary-fixed rounded text-xs font-bold mb-4 uppercase">Legal Insights</span>
+<h4 class="font-headline-md text-headline-md mb-3 text-primary group-hover:text-safety-orange-muted transition-colors">Your Rights During an Audit</h4>
+<p class="text-secondary text-sm">Expert advice on handling surprise DOT inspections with confidence and clarity.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. Navigation Previews -->
+<section class="mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg mb-8">5. Navigation Models</h2>
+<div class="space-y-12">
+<!-- Desktop Preview -->
+<div class="p-8 bg-white border border-border-subtle rounded-xl">
+<p class="font-label-caps text-label-caps text-secondary mb-6">DESKTOP HEADER PREVIEW</p>
+<div class="border border-border-subtle p-2 rounded-lg bg-surface">
+<div class="flex justify-between items-center px-6 py-4">
+<div class="font-bold text-lg">DOT PROGRAM</div>
+<div class="flex gap-6 text-sm text-secondary">
+<span>Benefits</span>
+<span class="text-primary font-bold">Pricing</span>
+<span>Resources</span>
+</div>
+<div class="bg-primary text-white px-4 py-2 rounded text-xs font-bold">JOIN</div>
+</div>
+</div>
+</div>
+<!-- Mobile Preview -->
+<div class="p-8 bg-white border border-border-subtle rounded-xl flex flex-col items-center">
+<p class="font-label-caps text-label-caps text-secondary mb-6 w-full text-left">MOBILE BOTTOM NAV PREVIEW</p>
+<div class="w-full max-w-sm border border-border-subtle rounded-3xl h-16 bg-surface flex items-center justify-around shadow-lg">
+<div class="flex flex-col items-center justify-center text-secondary">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-[10px]">HOME</span>
+</div>
+<div class="flex flex-col items-center justify-center text-safety-orange-muted font-bold">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="font-label-caps text-[10px]">BENEFITS</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-caps text-[10px]">RESOURCES</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary">
+<span class="material-symbols-outlined">add_moderator</span>
+<span class="font-label-caps text-[10px]">JOIN</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. Iconography & Imagery -->
+<section class="mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg mb-8">6. Iconography &amp; Imagery</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="p-8 bg-white border border-border-subtle rounded-xl">
+<h3 class="font-headline-md text-headline-md mb-6">Iconography Style</h3>
+<div class="grid grid-cols-4 gap-6 text-secondary">
+<div class="flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-4xl">local_shipping</span>
+<span class="text-[10px] font-label-caps">Logistics</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-4xl">balance</span>
+<span class="text-[10px] font-label-caps">Compliance</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-4xl">medical_services</span>
+<span class="text-[10px] font-label-caps">Healthcare</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-4xl">gavel</span>
+<span class="text-[10px] font-label-caps">Legal</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-4xl">description</span>
+<span class="text-[10px] font-label-caps">Audit</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-4xl">contact_support</span>
+<span class="text-[10px] font-label-caps">Support</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-4xl">calendar_month</span>
+<span class="text-[10px] font-label-caps">History</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-4xl">lock</span>
+<span class="text-[10px] font-label-caps">Security</span>
+</div>
+</div>
+<p class="mt-8 text-secondary text-sm">Use Material Symbols Outlined with a 400 weight. No fill except for active states. Color should be Slate (#515F74) for default and Safety Orange for active.</p>
+</div>
+<div class="p-8 bg-white border border-border-subtle rounded-xl">
+<h3 class="font-headline-md text-headline-md mb-6">Imagery Ethos</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-700 shrink-0">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<p class="text-sm">Real professionals in calm, controlled working environments.</p>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-700 shrink-0">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<p class="text-sm">Soft, natural lighting and wide, spacious compositions.</p>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-700 shrink-0">
+<span class="material-symbols-outlined text-sm">close</span>
+</div>
+<p class="text-sm">No fear-based imagery (crashes, sirens, or distress).</p>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-700 shrink-0">
+<span class="material-symbols-outlined text-sm">close</span>
+</div>
+<p class="text-sm">No cluttered, low-resolution, or amateur photography.</p>
+</div>
+</div>
+<div class="mt-8 h-32 w-full bg-surface-container rounded-lg relative overflow-hidden grayscale opacity-50">
+<img class="w-full h-full object-cover" data-alt="A wide-angle, cinematic photograph of a clean, modern highway stretching toward a bright, sun-drenched horizon. The atmosphere is peaceful and infinite, suggesting a journey protected by reliability and trust. The style is minimalist and high-end, utilizing the brand's primary color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRtRk9dlr-OEk0d43UQL_Hco29xDE6aWzSmgKxIFyDxyZLX22uHGYmymFlw4W4matniuIax0mR9lFUvypIPWIwGCbQPL-GbJWu6r6GmnR1wuk_eRwI3mmBLIYgTm7rn9aaLZD4SwHfksFEYb_688CmvEUmw7Tk_Ajwl21j-lKFAjvsbTCrEF4Mamo9wwkokqtSMXZn_ZiDmCJi9FGXZ2ChpkMz9W04pe-cxLUqlVPN4zckQUBON6TLxw9mSNLnp7b9mqiv1H624V0"/>
+<div class="absolute inset-0 bg-primary-container/20 flex items-center justify-center">
+<span class="text-white font-label-caps text-xs">VISUAL STYLE REFERENCE</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Execution -->
+<footer class="bg-primary-container text-on-primary-container w-full py-stack-lg px-margin-mobile md:px-margin-desktop mt-stack-lg">
+<div class="max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-12">
+<div class="col-span-1 md:col-span-2">
+<div class="font-headline-md text-headline-md text-white font-bold mb-4">DOT Career Protection</div>
+<p class="text-on-primary-container max-w-sm mb-6">
+                        Protecting the professionals who keep our nation moving. Stable, secure, and always on guard.
+                    </p>
+</div>
+<div>
+<h5 class="text-white font-bold mb-4 uppercase text-xs tracking-widest">Platform</h5>
+<ul class="space-y-2">
+<li><a class="hover:text-safety-orange-muted transition-colors" href="#">Terms of Service</a></li>
+<li><a class="hover:text-safety-orange-muted transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-safety-orange-muted transition-colors" href="#">Legal Disclosures</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-white font-bold mb-4 uppercase text-xs tracking-widest">Contact</h5>
+<ul class="space-y-2">
+<li><a class="hover:text-safety-orange-muted transition-colors" href="#">Contact Support</a></li>
+<li><a class="hover:text-safety-orange-muted transition-colors" href="#">FAQ</a></li>
+<li><a class="hover:text-safety-orange-muted transition-colors" href="#">Help Center</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-outline-variant pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-body-md text-body-md text-sm">© 2024 DOT Career Protection Program. All rights reserved.</p>
+<div class="flex gap-6">
+<span class="material-symbols-outlined cursor-pointer hover:text-white transition-colors">face_nod</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-white transition-colors">linked_camera</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-white transition-colors">contact_support</span>
+</div>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Shared Component Execution) - Mobile Only -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface border-t border-border-subtle shadow-lg px-4 py-3 lg:hidden flex justify-around items-center">
+<div class="flex flex-col items-center justify-center text-secondary">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-safety-orange-muted font-bold">
+<span class="material-symbols-outlined" data-weight="fill">verified_user</span>
+<span class="font-label-caps text-label-caps">Benefits</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-caps text-label-caps">Resources</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary">
+<span class="material-symbols-outlined">add_moderator</span>
+<span class="font-label-caps text-label-caps">Join</span>
+</div>
+</nav>
+<script>
+        // Micro-interactions for buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('scale-95');
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('scale-95');
+            });</script></body></html>

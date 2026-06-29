@@ -29,8 +29,8 @@ This document records approved project decisions taken from `docs/MASTER_BUILD_S
 
 ## Approved Membership Decisions
 
-- Monthly membership price: **$8 per month**.
-- Annual prepaid membership price: **$90 per year**.
+- Monthly membership price: **$7.99 per month** (replaced older active $8/mo decision on June 28, 2026).
+- Annual prepaid membership price: **$80 per year** (replaced older active $90/yr decision on June 28, 2026).
 - Annual membership should be displayed as providing a small savings.
 - Pricing should eventually live in one centralized configuration file.
 - A person must join before a DOT drug or alcohol violation occurs to use benefits for that violation.
@@ -42,14 +42,19 @@ This document records approved project decisions taken from `docs/MASTER_BUILD_S
 
 ## Approved Benefit Decisions
 
-Approved membership benefit categories include:
+Approved membership benefit categories include the following revised public benefit cards (replaced older active benefit categories on June 28, 2026):
 
-- Preventive educational emails.
-- General member support.
-- One standard DOT SAP service package through an approved participating provider, subject to terms.
-- One eligible return-to-duty test, subject to terms.
-- Up to three eligible return-to-duty education courses, subject to terms.
-- Career and second-chance resources as general resources, not guaranteed job placement or employer referral.
+1. **SAP Process Support**
+   SAP assessments and required DOT documentation of the process.
+
+2. **RTD Education Assistance**
+   Coverage of eligible education expenses resulting from the SAP assessment.
+
+3. **Practice RTD Drug Test**
+   Coverage of one eligible non-DOT test before SAP process completion.
+
+4. **Ongoing Compliance Education**
+   Quarterly newsletters and practical education to help members understand DOT safety and drug-and-alcohol requirements.
 
 ## Approved Phase 1 Operating Model
 

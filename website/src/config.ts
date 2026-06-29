@@ -3,19 +3,19 @@ export const programConfig = {
   domainName: '49CFR40.com',
   pricing: {
     monthly: {
-      label: 'Monthly membership',
-      price: '$8',
-      cadence: 'per month',
+      label: 'Monthly',
+      price: '$7.99',
+      cadence: '/month',
     },
     annual: {
-      label: 'Annual membership',
-      price: '$90',
-      cadence: 'per year',
-      savingsNote: 'A small savings compared with paying monthly.',
+      label: 'Annual',
+      price: '$80',
+      cadence: '/year',
+      savingsNote: 'Save $15.88 per year compared to monthly.',
     },
   },
   eligibility: {
-    waitingPeriodDays: 90,
+    waitingPeriod: '90 consecutive days of active membership',
     benefitFrequency: 'once during each applicable 12-month benefit period',
   },
   contact: {
