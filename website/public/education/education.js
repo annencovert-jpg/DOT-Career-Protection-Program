@@ -25,10 +25,33 @@ function svgEl(tag, attrs) {
   for (const [key,value] of Object.entries(attrs)) el.setAttribute(key,String(value));
   return el;
 }
-function sectorPath(start,end,r,inner=48) {
-  const point = (angle,radius) => [150+radius*Math.cos(angle),150+radius*Math.sin(angle)];
-  const p1=point(start,r), p2=point(end,r), p3=point(end,inner), p4=point(start,inner);
+const chartLabels = [
+  ['Cannabis', '& hemp'], ['Alcohol', 'decisions'], ['Medication', 'awareness'],
+  ['Stress', '& coping'], ['Social', 'boundaries'], ['Sleep & road', 'readiness']
+];
+const statusMeta = {
+  yes: {glyph:'✓',fill:'#166534',ink:'#ffffff',label:'I practice this'},
+  work: {glyph:'~',fill:'#fbbf24',ink:'#482c00',label:'Working on it'},
+  open: {glyph:'○',fill:'#e7edf3',ink:'#334155',label:'Not answered'},
+  na: {glyph:'—',fill:'#778393',ink:'#ffffff',label:'Not applicable'}
+};
+const polar = (angle,r) => [210+r*Math.cos(angle),210+r*Math.sin(angle)];
+function sectorPath(start,end,r,inner=64) {
+  const p1=polar(start,r), p2=polar(end,r), p3=polar(end,inner), p4=polar(start,inner);
   return 'M '+p1.join(' ')+' A '+r+' '+r+' 0 0 1 '+p2.join(' ')+' L '+p3.join(' ')+' A '+inner+' '+inner+' 0 0 0 '+p4.join(' ')+' Z';
+}
+function svgText(g, x, y, value, attrs={}) {
+  const t=svgEl('text',{x,y,'text-anchor':'middle','dominant-baseline':'middle',...attrs});
+  t.textContent=value;g.append(t);return t;
+}
+function statusChip(value,questionNumber) {
+  const type=value||'open', status=statusMeta[type];
+  const chip=node('span',null,'question-chip '+type);
+  const sym=node('span',status.glyph,'chip-glyph');sym.setAttribute('aria-hidden','true');
+  chip.append(node('span','Q'+questionNumber),sym);
+  chip.title='Question '+questionNumber+': '+status.label;
+  chip.setAttribute('aria-label',chip.title);
+  return chip;
 }
 function renderChart() {
   const chart = $('wheel-chart');
@@ -39,42 +62,54 @@ function renderChart() {
   wheel.forEach((area,i)=>{
     const data=summary(i);
     const segment=2*Math.PI/wheel.length;
-    const start=-Math.PI/2+i*segment+0.045, end=start+segment-0.09;
-    g.append(svgEl('path',{d:sectorPath(start,end,126),fill:'#edf0f4',stroke:i===selected?'#9a3412':'#d8dfe8','stroke-width':i===selected?2:1}));
-    const applicable=data.total-data.na;
-    if (data.yes && applicable) {
-      const r=48+78*data.yes/applicable;
-      g.append(svgEl('path',{d:sectorPath(start,end,r),fill:'#fb923c',stroke:'#b45309','stroke-width':0.75}));
+    const middle=-Math.PI/2+i*segment;
+    const start=middle-segment/2+0.035, end=middle+segment/2-0.035;
+    const radius=126;
+    const slot=(end-start)/data.total;
+    for(let j=0;j<data.total;j++){
+      const status=statusMeta[responses[i][j]||'open'];
+      const a1=start+j*slot+0.012, a2=start+(j+1)*slot-0.012;
+      const a=(a1+a2)/2, path=svgEl('path',{d:sectorPath(a1,a2,radius),fill:status.fill,stroke:'#ffffff','stroke-width':1.4,class:'wheel-slot'});
+      path.addEventListener('click',()=>selectArea(i,true));
+      const title=svgEl('title',{});title.textContent=area.title+', question '+(j+1)+': '+status.label+'. '+area.questions[j];
+      path.append(title);g.append(path);
+      const symbol=polar(a,107), q=polar(a,82);
+      svgText(g,...symbol,status.glyph,{'font-size':23,'font-weight':800,fill:status.ink,'pointer-events':'none'});
+      svgText(g,...q,String(j+1),{'font-size':12,'font-weight':700,fill:status.ink,'pointer-events':'none'});
     }
-    if (applicable>1) for(let j=1;j<applicable;j++){
-      const r=48+78*j/applicable;
-      const p1=[150+r*Math.cos(start),150+r*Math.sin(start)],p2=[150+r*Math.cos(end),150+r*Math.sin(end)];
-      g.append(svgEl('path',{d:'M '+p1.join(' ')+' A '+r+' '+r+' 0 0 1 '+p2.join(' '),fill:'none',stroke:'#ffffff','stroke-width':1.2}));
-    }
-    const a=(start+end)/2;
-    const number=svgEl('text',{x:150+110*Math.cos(a),y:150+110*Math.sin(a)+5,fill:'#131b2e','font-size':14,'font-weight':800,'text-anchor':'middle'});
-    number.textContent=String(i+1);
-    g.append(number);
+    g.append(svgEl('path',{d:sectorPath(start,end,radius),fill:'none',stroke:i===selected?'#9a3412':'#8b98a6','stroke-width':i===selected?3.5:1.2,'pointer-events':'none'}));
+    const label=polar(middle,175);
+    const lines=chartLabels[i]||[area.title];
+    lines.forEach((line,j)=>svgText(g,label[0],label[1]+(j-(lines.length-1)/2)*16,line,{'font-size':14.5,'font-weight':i===selected?800:700,fill:i===selected?'#9a3412':'#131b2e'}));
     const b=node('button');b.type='button';b.setAttribute('aria-pressed',String(i===selected));
-    const count=applicable===0?'All marked N/A':data.yes+' of '+applicable+' practiced';
-    b.setAttribute('aria-label',area.title+', '+count+', '+data.unanswered+' unanswered. Select questions.');
-    b.append(node('span',String(i+1),'number'),node('span',area.title),node('small',count+(data.unanswered?' · '+data.unanswered+' open':'')));
+    const counts=data.yes+' practiced · '+data.work+' working · '+data.unanswered+' open · '+data.na+' N/A';
+    b.setAttribute('aria-label',area.title+', '+counts+'. Select questions.');
+    const title=node('span',area.title,'area-name');
+    const chips=node('span',null,'question-chips');
+    responses[i].forEach((v,j)=>chips.append(statusChip(v,j+1)));
+    const stats=node('small',counts,'area-count');
+    b.append(title,chips,stats);
     b.addEventListener('click',()=>selectArea(i,true));
     legend.append(b);
   });
-  const count=responses.flat().filter(x=>x!==null).length;
-  const total=responses.flat().length;
+  const values=responses.flat(), count=values.filter(x=>x!==null).length, total=values.length;
   $('progress').textContent=count+' of '+total+' answered';
-  const center=svgEl('text',{x:150,y:145,'font-size':14,'text-anchor':'middle','font-weight':800,fill:'#131b2e'});center.textContent='My habits';
-  const center2=svgEl('text',{x:150,y:165,'font-size':12,'text-anchor':'middle',fill:'#515f74'});center2.textContent=count===0?'Start here':count===total?'Reviewed':count+' answered';
-  g.append(center,center2);chart.append(g);
+  const totals=$('wheel-totals');totals.replaceChildren();
+  ['yes','work','open','na'].forEach(key=>{
+    const amount=values.filter(v=>(v||'open')===key).length;
+    const label={yes:'Practiced',work:'Working on',open:'Open',na:'N/A'}[key];
+    const tile=node('div',null,'total-tile '+key);tile.append(node('strong',String(amount)),node('span',label));totals.append(tile);
+  });
+  svgText(g,210,199,'My habits',{'font-size':17,'font-weight':800,fill:'#131b2e'});
+  svgText(g,210,220,count+' / '+total+' answered',{'font-size':13,fill:'#515f74'});
+  chart.append(g);
   const work=wheel.map((a,i)=>({i,data:summary(i)})).filter(x=>x.data.work>0).sort((a,b)=>b.data.work-a.data.work);
   const focus=$('focus');focus.replaceChildren();
   if(work.length){
     const area=wheel[work[0].i];focus.append(node('strong','One place to focus: '+area.title),node('p',area.action));
     if(work.length>1)focus.append(node('small','You also marked other habits to work on. Choose the one that seems most useful to you.'));
   }else{
-    focus.append(node('strong',count===total?'Keep what works':'One place to start'),node('p',count===total?'Choose one habit to reinforce this month. Your answers reflect only the habits you reported.':'As you answer, choose a habit you want to work on. Small changes count.'));
+    focus.append(node('strong',count===total?'Choose one next step':'One place to start'),node('p',count===total?'Pick a habit that matters to you and reinforce it this month. Your answers reflect only the habits you reported.':'As you answer, choose a habit you want to work on. Small changes count.'));
   }
 }
 function makeChoice(name,value,label,checked,callback,type='radio'){
@@ -88,7 +123,7 @@ function renderQuestions(){
   $('question-step').textContent='Area '+(selected+1)+' of '+wheel.length;
   const heading=node('h3',area.title);heading.id='area-title';heading.tabIndex=-1;container.replaceChildren(heading);
   area.questions.forEach((q,j)=>{
-    const field=node('fieldset');field.append(node('legend',(j+1)+'. '+q));
+    const field=node('fieldset');const label=node('legend');label.append(node('span','Q'+(j+1),'question-ref'),node('span',q));field.append(label);
     choiceLabels.forEach(([value,label])=>field.append(makeChoice('wheel-'+selected+'-'+j,value,label,responses[selected][j]===value,()=>{responses[selected][j]=value;renderChart();})));
     container.append(field);
   });
@@ -99,6 +134,7 @@ function selectArea(i,focus){selected=i;renderQuestions();renderChart();if(focus
 $('prev-area').addEventListener('click',()=>{if(selected>0)selectArea(selected-1,true);});
 $('next-area').addEventListener('click',()=>{if(selected<wheel.length-1)selectArea(selected+1,true);else{$('wheel-chart').scrollIntoView({block:'center'});$('legend').querySelector('button').focus({preventScroll:true});}});
 $('reset').addEventListener('click',()=>{responses.forEach(row=>row.fill(null));selectArea(0,true);});
+$('start-area').addEventListener('click',()=>selectArea(selected,true));
 selectArea(0,false);
 
 const topicMap = {
@@ -127,7 +163,7 @@ topics.forEach(([id,title])=>{
 const completed = new Set();
 function checkProgress(){
   const n=completed.size;
-  $('annual-progress-text').textContent=n+' of '+months.length+' knowledge checks completed correctly this visit.';
+  $('annual-progress-text').textContent=n+' of '+months.length+' monthly knowledge checks completed this visit (all three correct). Review is not saved.';
   $('annual-progress-bar').value=n;
   $('annual-badge').hidden=n!==months.length;
   if(n===months.length)$('badge-year').textContent='Learning year '+new Date().getFullYear();
@@ -155,13 +191,26 @@ function lessonCard(m,i){
   },'checkbox')));
   activity.append(af,afb);body.append(activity);
   const quiz=node('div',null,'knowledge');quiz.append(node('h3','Knowledge check'));
-  const field=node('fieldset');field.append(node('legend',m.check.question));
-  const feedback=node('p','','feedback');feedback.setAttribute('aria-live','polite');
-  m.check.options.forEach((option,j)=>field.append(makeChoice('quiz-'+i,String(j),option,false,()=>{
-    feedback.textContent=(j===m.check.answer?'That’s right. ':'Think about this: ')+m.check.explanation;
-    if(j===m.check.answer)completed.add(i);else completed.delete(i);checkProgress();
-  })));
-  quiz.append(field,feedback);body.append(quiz);
+  const checks=m.checks||[m.check];
+  const answers=new Array(checks.length).fill(null);
+  const quizStatus=node('p','0 of '+checks.length+' correct. You can try again.','quiz-status');
+  quizStatus.setAttribute('aria-live','polite');
+  quiz.append(quizStatus);
+  checks.forEach((check,k)=>{
+    const field=node('fieldset');field.append(node('legend',(k+1)+'. '+check.question));
+    const feedback=node('p','','feedback');feedback.setAttribute('aria-live','polite');
+    check.options.forEach((option,j)=>field.append(makeChoice('quiz-'+i+'-'+k,String(j),option,false,()=>{
+      const correct=j===check.answer;
+      feedback.textContent=(correct?'That’s right. ':'Think about this: ')+(check.feedback?.[j]||check.explanation);
+      feedback.classList.toggle('correct',correct);feedback.classList.toggle('retry',!correct);
+      answers[k]=correct;
+      const count=answers.filter(x=>x===true).length;
+      quizStatus.textContent=count+' of '+checks.length+' correct.'+(count===checks.length?' Monthly knowledge check complete.':' You can try again.');
+      if(count===checks.length)completed.add(i);else completed.delete(i);checkProgress();
+    })));
+    field.append(feedback);quiz.append(field);
+  });
+  body.append(quiz);
   body.append(node('h3','Learn more'));
   const list=node('ul',null,'resource-list');
   m.resources.forEach(resource=>{
