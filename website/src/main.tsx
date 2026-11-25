@@ -26,7 +26,7 @@ function HomePage() {
             </div>
           </div>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden xl:flex items-center gap-6">
             <a href="#benefits" className="font-body-md text-body-md text-primary dark:text-on-primary font-bold border-b-2 border-safety-orange-muted pb-1 hover:text-primary dark:hover:text-on-primary transition-colors">
               Benefits
             </a>
@@ -41,6 +41,9 @@ function HomePage() {
             </a>
             <a href="#faq" className="font-body-md text-body-md text-secondary dark:text-on-secondary-container hover:text-primary dark:hover:text-on-primary transition-colors">
               FAQ
+            </a>
+            <a href="./education/" className="font-body-md text-body-md text-secondary dark:text-on-secondary-container hover:text-primary dark:hover:text-on-primary transition-colors">
+              Resources
             </a>
           </div>
 
@@ -310,6 +313,9 @@ function HomePage() {
               <a href="#" className="font-body-md text-body-md text-on-primary-container hover:text-white transition-colors">
                 Legal Disclosures
               </a>
+              <a href="./education/" className="font-body-md text-body-md text-on-primary-container hover:text-white transition-colors">
+                Education &amp; Resources
+              </a>
               <a href="#" className="font-body-md text-body-md text-on-primary-container hover:text-white transition-colors">
                 Contact Support
               </a>
@@ -323,7 +329,7 @@ function HomePage() {
       </footer>
 
       {/* BottomNavBar (Mobile Only) */}
-      <nav className="fixed bottom-0 left-0 w-full z-50 bg-surface dark:bg-surface-dark border-t border-border-subtle dark:border-outline shadow-lg flex justify-around items-center px-4 py-3 lg:hidden mb-0">
+      <nav className="fixed bottom-0 left-0 w-full z-50 bg-surface dark:bg-surface-dark border-t border-border-subtle dark:border-outline shadow-lg flex justify-around items-center px-2 py-3 xl:hidden mb-0">
         <a href="#benefits" className="flex flex-col items-center justify-center text-secondary">
           <span className="material-symbols-outlined">verified_user</span>
           <span className="font-label-caps text-[10px] mt-1">Benefits</span>
@@ -343,6 +349,10 @@ function HomePage() {
         <a href="#faq" className="flex flex-col items-center justify-center text-secondary">
           <span className="material-symbols-outlined">quiz</span>
           <span className="font-label-caps text-[10px] mt-1">FAQ</span>
+        </a>
+        <a href="./education/" className="flex flex-col items-center justify-center text-secondary">
+          <span className="material-symbols-outlined">school</span>
+          <span className="font-label-caps text-[10px] mt-1">Resources</span>
         </a>
       </nav>
     </>
