@@ -18,3 +18,7 @@ A real dated downloadable annual completion badge and renewal, if approved, shou
 ## Deploy to preview hosting
 
 Build the pinned branch using the existing Vite build and Firebase project `dot-career-protection-program`. Keep the Firebase preview noindex/nofollow and do not connect the production domain. Verify /education/ and homepage links after release. Do not merge into main automatically.
+
+## Review v2
+
+Preserves preview v1 and the original Stitch branch. Six directly labeled wheel areas have 18 fixed question slots with color and symbols for practiced, working on, unanswered and not applicable; all have a text equivalent, exact per-question status and totals. No safety rating or test outcome prediction. Every monthly lesson now includes four or more educational sections and three authored knowledge questions with answer-specific feedback. All three correct answers are required for a monthly knowledge check to count; editing an answer updates completion. The annual sample remains only a session demonstration, no identity verification or data collection. Firebase preview deployment requires the owner's review/approval; no DNS or payment changes.
