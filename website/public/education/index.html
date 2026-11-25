@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Practical monthly prevention education and a private protective-habits check-in for DOT-regulated workers.">
+<title>Road Ready | DOT Career Protection Program</title>
+<link rel="stylesheet" href="./education.css">
+<script type="module" src="./education.js"></script>
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+<header class="header">
+  <div class="container nav-row"><a href="../" class="brand"><span class="brand-mark" aria-hidden="true">↟</span><span>DOT Career Protection Program<small>49CFR40.COM</small></span></a><nav aria-label="Main navigation"><a href="../">Home</a><a href="#monthly-lessons">Lessons</a><a aria-current="page" href="#wheel">Check-in</a></nav></div>
+</header>
+<main id="main">
+  <section class="hero"><div class="container hero-grid">
+    <div><p class="eyebrow">Education &amp; resources</p><h1>Stay road ready.<br><em>Build habits that protect your career.</em></h1><p class="lead">A few minutes each month can help you recognize decisions, pressures and everyday routines that deserve your attention. Start with the private check-in or explore a topic that matters to you.</p><div class="button-row"><a class="button primary" href="#wheel">Take the check-in <span aria-hidden="true">→</span></a><a class="button secondary" href="#monthly-lessons">Browse monthly lessons</a></div></div>
+    <aside class="hero-card"><p class="eyebrow">Made for your schedule</p><h2>Small steps. All year.</h2><div class="hero-facts"><span><strong>12</strong> monthly topics</span><span><strong>6</strong> habit areas</span><span><strong>0</strong> logins required</span></div><p>Read one lesson, choose one action to take, then return whenever you need a reminder.</p></aside>
+  </div></section>
+  <section id="wheel" class="section container">
+    <div class="section-heading"><p class="eyebrow">Your private check-in</p><h2>Your protective habits wheel</h2><p>Think about how you actually handle everyday decisions, not what you wish you did. There are no grades. The wheel reflects habits you report, not your test results, medical condition or fitness for duty.</p></div>
+    <div class="wheel-layout">
+      <div class="card wheel-card"><div class="wheel-head"><h3>My habit areas</h3><span id="progress" class="pill" aria-live="polite">0 answered</span></div>
+      <svg viewBox="0 0 300 300" id="wheel-chart" role="img" aria-labelledby="wheel-title wheel-description"><title id="wheel-title">Protective habits wheel</title><desc id="wheel-description">Choose a habit area below to answer its questions. Results are also shown as text.</desc></svg>
+      <p class="wheel-caption">Orange shows habits you report practicing. Pale areas show habits not yet confirmed, not a safety rating.</p>
+      <div id="legend" class="legend"></div>
+      <div id="focus" class="focus" aria-live="polite"><strong>One place to start</strong><p>As you answer, choose a habit you want to work on. Small changes count.</p></div></div>
+      <div class="card questions-card"><div class="wheel-head"><p class="eyebrow" id="question-step"></p><button type="button" id="reset" class="text-button">Reset check-in</button></div><div id="questions"></div><div class="button-row"><button class="button secondary" id="prev-area" type="button">Previous</button><button class="button primary" id="next-area" type="button">Next area</button></div><p class="fine">Your answers stay on this page. They are not saved, sent to us or shared with employers. Participation is optional and does not affect membership benefit eligibility.</p></div>
+    </div>
+  </section>
+  <section id="monthly-lessons" class="section lessons-section">
+    <div class="container"><div class="section-heading"><p class="eyebrow">The road ready year</p><h2>One topic each month</h2><p>Read at your own pace. Each short lesson has a practical activity, a knowledge check, and further reading from trusted sources. You can revisit any month at any time.</p></div><div class="topic-panel"><div><h3>Browse the topics you care about</h3><p>Use these optional topic filters to explore the lessons. This is not an email signup, and your choices are not saved.</p></div><div id="topic-filters" class="topic-filters" aria-label="Filter lessons by topic"></div><p id="filter-count" class="fine" aria-live="polite"></p></div><div class="annual-progress card"><div><p class="eyebrow">Annual learning journey</p><h3>12 months. 12 small milestones.</h3><p id="annual-progress-text" aria-live="polite">0 of 12 knowledge checks completed correctly this visit.</p><progress id="annual-progress-bar" max="12" value="0" aria-label="Correctly completed monthly knowledge checks"></progress><p class="fine">Preview only: your progress is not saved. A future optional member feature could issue a dated participation badge after all 12 checks are completed, with a new year’s cycle. This is not proof of compliance, sobriety or fitness for duty.</p></div><div id="annual-badge" class="badge-demo" hidden aria-live="polite"><strong>Road Ready</strong><span>Annual participation • Sample</span><span id="badge-year"></span><small>Illustration only · not verified</small></div></div><div id="month-grid" class="month-grid" aria-label="Choose a monthly lesson"></div><div id="lesson-list"></div></div>
+  </section>
+  <section class="container section">
+    <div class="card help"><div><p class="eyebrow">Know where to turn</p><h2>Need more than a self-check?</h2><p>If you have questions about your specific employer rules, speak with your employer’s designated representative. For concerns about substance use, seek support from a qualified healthcare professional. Do not rely on a self-assessment to decide if you are fit for safety-sensitive duty.</p></div><a class="button secondary" href="https://www.transportation.gov/odapc/employee" rel="noreferrer">DOT employee resources ↗</a></div>
+  </section>
+</main>
+<footer><div class="container"><div class="footer-row"><div><strong>DOT Career Protection Program</strong><p>Education for your career, for the long road ahead.</p></div><a href="../">Return to the program homepage →</a></div><p class="fine">General education only. Not medical or legal advice, proof of compliance, a prediction of testing outcomes, or a substitute for your employer’s policies or applicable DOT requirements.</p></div></footer>
+<noscript><p class="container">Turn on JavaScript to use the private wheel and monthly lesson activities.</p></noscript>
+</body></html>
